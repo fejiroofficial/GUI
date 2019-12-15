@@ -1,5 +1,7 @@
 from tkinter import *
-import backend
+from backend import Database
+
+db = Database("books.db")
 
 
 def get_selected_row(event):
@@ -21,27 +23,27 @@ def get_selected_row(event):
 
 def view_command():
     list1.delete(0, END)
-    for row in backend.view():
+    for row in db.view():
         list1.insert(END, row)
 
 def search_command():
     list1.delete(0, END)
-    for row in backend.search(title_text.get(), author_text.get(), year_text.get(), isbn_text.get()):
+    for row in db.search(title_text.get(), author_text.get(), year_text.get(), isbn_text.get()):
         list1.insert(END, row)
 
 def add_command():
     list1.delete(0, END)
-    backend.insert(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
+    db.insert(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
     list1.insert(END, (title_text.get(), author_text.get(), year_text.get(), isbn_text.get()))
 
 def delete_command():
     list1.delete(0, END)
-    backend.delete(selected_tuple[0])
+    db.delete(selected_tuple[0])
     list1.insert(END, "One item deleted successfully")
 
 def update_command():
     list1.delete(0, END)
-    backend.update(selected_tuple[0], title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
+    db.update(selected_tuple[0], title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
     list1.insert(END, (title_text.get(), author_text.get(), year_text.get(), isbn_text.get()))
 
 
